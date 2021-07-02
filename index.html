@@ -58,7 +58,7 @@
 
 		import * as THREE from 'https://cdn.skypack.dev/three';
 
-		const SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
+		const SEPARATION = 150, AMOUNTX = 50, AMOUNTY = 50;
 
 		let container, stats;
 		let camera, scene, renderer;
@@ -80,8 +80,8 @@
 			document.body.appendChild(container);
 
 			//define camera
-			camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-			camera.position.z = 1000;
+			camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 30000);
+			camera.position.z = 2000;
 
 			scene = new THREE.Scene();
 			scene.background = new THREE.Color(0xffffff);
@@ -93,7 +93,8 @@
 			//define particles
 			const numParticles = AMOUNTX * AMOUNTY;
 
-			const positions = new Float32Array(numParticles * 7);
+			//particle面积
+			const positions = new Float32Array(numParticles * 1);
 			const scales = new Float32Array(numParticles);
 
 			let i = 0, j = 0;
@@ -102,11 +103,11 @@
 
 				for (let iy = 0; iy < AMOUNTY; iy++) {
 					//wave大小
-					positions[i] = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 3); // x
+					positions[i] = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 5); // x
 					positions[i + 1] = 0; // y
-					positions[i + 2] = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2); // z
+					positions[i + 2] = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 100); // z
 
-					scales[j] = 5;
+					scales[j] = 1;
 
 					i += 3;
 					j++;
@@ -154,7 +155,7 @@
 
 		function onWindowResize() {
 
-			windowHalfX = window.innerWidth / 4;
+			windowHalfX = window.innerWidth / 2;
 			windowHalfY = window.innerHeight / 2;
 
 			camera.aspect = window.innerWidth / window.innerHeight;
@@ -202,8 +203,8 @@
 				for (let iy = 0; iy < AMOUNTY; iy++) {
 
 					//在轴上起伏程度
-					positions[i + 1] = (Math.sin((ix + count) * 0.3) * 100) +
-						(Math.sin((iy + count) * 0.5) * 100);
+					positions[i + 1] = (Math.sin((ix + count) * 0.3) * 200) +
+						(Math.sin((iy + count) * 0.5) * 200);
 
 					scales[j] = (Math.sin((ix + count) * 0.3) + 1) * 20 +
 						(Math.sin((iy + count) * 0.5) + 1) * 20;
